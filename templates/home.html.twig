@@ -1,10 +1,49 @@
-{% extends base.html.twig %}
+{% extends 'base.html.twig' %}
 
 
 {% block body %}
+    <main class="bg-gray-900 text-white">
+        <section class="pt-20 lg:pt-40 pb-40 relative bg-gray-900">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap justify-center text-center">
+                    <div class="w-full lg:w-6/12 px-4">
+                        <h2 class="text-4xl font-semibold">Bienvenue sur mon Portfolio</h2>
+                        <p class="text-lg leading-relaxed mt-4 mb-4 text-gray-500">Je suis Antonin, développeur web passionné par la création de solutions digitales innovantes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <main>
-        <h1>Bonjour</h1>
+        <section class="relative py-20">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-wrap">
+                    <div class="w-full md:w-4/12 px-4 text-center">
+                        <div class="text-gray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                            <i class="fas fa-project-diagram text-xl"></i>
+                        </div>
+                        <h6 class="text-xl mt-5 font-semibold text-white">Projets</h6>
+                        <p class="mt-2 mb-4 text-gray-500">Découvrez mes projets récents, reflétant mes compétences et mon expertise.</p>
+                    </div>
+
+                    <div class="w-full md:w-4/12 px-4 text-center">
+                        <div class="text-gray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                            <i class="fas fa-user-tie text-xl"></i>
+                        </div>
+                        <h6 class="text-xl mt-5 font-semibold text-white">À Propos</h6>
+                        <p class="mt-2 mb-4 text-gray-500">En savoir plus sur moi, mon parcours et ce qui me motive dans le développement web.</p>
+                    </div>
+
+                    <div class="w-full md:w-4/12 px-4 text-center">
+                        <div class="text-gray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </div>
+                        <h6 class="text-xl mt-5 font-semibold text-white">Contact</h6>
+                        <p class="mt-2 mb-4 text-gray-500">N'hésitez pas à me contacter pour discuter de vos projets ou pour toute question.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+
 
 {% endblock body %}
