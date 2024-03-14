@@ -14,7 +14,7 @@ class ProjectController extends AbstractController
     {
     }
 
-    #[Route('/projets')]
+    #[Route('/projets', name: 'project')]
     public function renderProject(): Response
     {
        return $this->render(

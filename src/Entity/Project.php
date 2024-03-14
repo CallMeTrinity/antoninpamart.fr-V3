@@ -31,7 +31,7 @@ class Project
     private ?string $project_resource;
 
     #[ORM\Column(nullable: true)]
-    private ?int $project_created_at = null;
+    private ?string $project_created_at = null;
 
 
     public function setId(?int $id): static
@@ -104,12 +104,12 @@ class Project
         return $this;
     }
 
-    public function getProjectCreatedAt(): ?int
+    public function getProjectCreatedAt(): ?string
     {
         return $this->project_created_at;
     }
 
-    public function setProjectCreatedAt(?int $project_created_at): static
+    public function setProjectCreatedAt(?string $project_created_at): static
     {
         $this->project_created_at = $project_created_at;
 

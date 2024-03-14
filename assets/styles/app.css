@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .current {
+        @apply text-blue-600 font-semibold underline decoration-2 underline-offset-4;
+    }
+
+    .bg-advanced {
+        background-color: #3182ce;
+        padding: 0.5rem;
+    }
+
+    .bg-intermediate {
+        background-color: #48bb78;
+        padding: 0.5rem;
+    }
+
+    .bg-basic {
+        background-color: #ecc94b;
+        padding: 0.5rem;
+    }
+}
+
+

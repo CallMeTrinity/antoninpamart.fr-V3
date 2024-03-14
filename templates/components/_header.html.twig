@@ -5,10 +5,10 @@
                 <a href="/" class="text-white text-2xl font-bold "><img src="{{ asset('media/tntLogo.svg') }}" alt="" class="hover:scale-110 active:scale-90 transition-all ease-in-out"></a>
             </div>
             <nav class="hidden md:flex space-x-10">
-                <a href="/" class="text-gray-300 hover:text-white">Accueil</a>
-                <a href="/projets" class="text-gray-300 hover:text-white">Projets</a>
-                <a href="/a_propos" class="text-gray-300 hover:text-white">À Propos</a>
-                <a href="/contact" class="text-gray-300 hover:text-white">Contact</a>
+                <a href="/" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'homepage' %}current{% endif %}">Accueil</a>
+                <a href="/projets" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'project' %}current{% endif %}">Projets</a>
+                <a href="/a_propos" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'about' %}current{% endif %}">À Propos</a>
+                <a href="/contact" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'contact' %}current{% endif %}">Contact</a>
             </nav>
             <div class="flex items-center">
                 <div class="flex border-2 rounded">

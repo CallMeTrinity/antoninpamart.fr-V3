@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="bg-gray-900 text-white">
+        <div class="container mx-auto px-4 py-12">
+            <div class="flex flex-wrap justify-between items-center">
+                <!-- Section photo avec effet de parallaxe léger -->
+                <div class="lg:w-1/3 flex justify-center lg:justify-start px-4 mb-8 lg:mb-0">
+                    <div class="w-64 h-64 bg-cover bg-center rounded-full shadow-xl hover:shadow-2xl transition-shadow duration-500" style="background-image: url('{{ asset('media/tntLogo.svg') }}'); transform: scale(1); transition: transform 0.5s ease-in-out;"></div>
+                </div>
+
+                <!-- Section informations principales avec animation -->
+                <div class="lg:w-2/3 px-4">
+                    <div class="animate-fade-in-up">
+                        <h1 class="text-5xl font-bold mb-6">À Propos de Moi</h1>
+                        <p class="mb-6 text-lg leading-relaxed">Ici, tu peux introduire brièvement ton parcours, tes motivations et ce qui te passionne. Cette section est idéale pour partager ton histoire et tes aspirations.</p>
+                        <a href="#" target="_blank" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded transition duration-300 ease-in-out">Télécharger mon CV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-12 bg-gray-800">
+            <h2 class="text-4xl font-semibold mb-6 text-center">Compétences</h2>
+            <div class="flex flex-wrap justify-center gap-6">
+                <!-- Blocs de compétences avec effet hover -->
+                {% set levels = ['advanced', 'intermediate', 'basic'] %}
+                {% set skills = [advanced, intermediate, basic] %}
+                {% for index, level in levels %}
+                    <div class="w-full md:w-1/3 px-4">
+                        <div class="bg-gray-900 rounded-xl shadow-xl hover:scale-105 transform transition-transform duration-500 p-6">
+                            <h3 class="text-2xl font-bold mb-4">{{ level|upper }}</h3>
+                            <div class="text-gray-300 flex flex-wrap gap-2">
+                                {% for skill in skills[index] %}
+                                    <span class="inline-block bg-{{ level|lower }} rounded-full px-3 py-1 text-sm font-semibold text-white">{{ skill.name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
