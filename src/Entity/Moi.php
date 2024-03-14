@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\MoiRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\UX\Turbo\Attribute\Broadcast;
+
+#[Broadcast]
+#[ORM\Entity(repositoryClass: MoiRepository::class)]
+class Moi
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $aboutMe = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pp = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $age = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getAboutMe(): ?string
+    {
+        return $this->aboutMe;
+    }
+
+    public function setAboutMe(?string $aboutMe): static
+    {
+        $this->aboutMe = $aboutMe;
+
+        return $this;
+    }
+
+    public function getPp(): ?string
+    {
+        return $this->pp;
+    }
+
+    public function setPp(?string $pp): static
+    {
+        $this->pp = $pp;
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(?int $age): static
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+}

@@ -6,7 +6,9 @@ use App\Repository\ProjectRepository;
 use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\UX\Turbo\Attribute\Broadcast;
 
+#[Broadcast]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
 {

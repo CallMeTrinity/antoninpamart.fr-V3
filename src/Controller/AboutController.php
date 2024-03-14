@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Moi;
 use App\Entity\Skill;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +23,7 @@ class AboutController extends AbstractController
                 'advanced' => $this->entityManager->getRepository(Skill::class)->advancedSkills(),
                 'intermediate' => $this->entityManager->getRepository(Skill::class)->intermediateSkills(),
                 'basic' => $this->entityManager->getRepository(Skill::class)->baseSkills(),
+                'info' => $this->entityManager->getRepository(Moi::class)->findAll()[0],
             ]
         );
     }
