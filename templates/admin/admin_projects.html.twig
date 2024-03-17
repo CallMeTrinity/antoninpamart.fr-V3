@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'form/theme.html.twig' %}
+
+{% block title %}Administration des projets{% endblock %}
+
+{% block body %}
+    <div class="min-h-screen py-12">
+        <div class="container mx-auto px-4">
+            <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8 lg:p-12  mb-8">
+                <h2 class="text-2xl text-white font-bold mb-6">Liste des projets</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap">
+                        <thead>
+                        <tr class="text-left font-bold">
+                            <th class="pb-4 pt-6 px-6 text-white">Nom du projet</th>
+                            <th class="pb-4 pt-6 px-6 text-white">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for project in projects %}
+                            <tr class="group hover:bg-gray-50 transition-all">
+                                <td class="pb-4 pt-6 px-6 text-white group-hover:text-black">{{ project.name }}</td>
+                                <td class="pb-4 pt-6 px-6">
+                                    <a href="{{ path('project_edit', {'id': project.id}) }}" class="text-blue-600 hover:text-blue-700 mr-4">Modifier</a>
+                                    <a href="{{ path('project_delete', {'id': project.id}) }}" class="text-red-600 hover:text-red-700" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="2" class="pb-4 pt-6 px-6">Aucun projet trouvé</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8 lg:p-12">
+                <h1 class="text-2xl text-white font-bold mb-6">Ajouter / Modifier un projet</h1>
+                {{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="inline-flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    Enregistrer
+                </button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

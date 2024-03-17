@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Project;
+use App\Exception\ProjectNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,38 +22,44 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
-    public function listProjects() :array
+    public function listProjects(): array
     {
         return $this->createQueryBuilder('p')
             ->select('p')
-            ->orderBy('p.project_created_at', 'DESC')
+            ->orderBy('p.created_at', 'DESC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
-    //    /**
-    //     * @return Project[] Returns an array of Project objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @throws ProjectNotFoundException
+     */
+    public function deleteProject(int $id): void
+    {
+        $project = $this->find($id);
 
-    //    public function findOneBySomeField($value): ?Project
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if (!$project) {
+            throw new ProjectNotFoundException('Le projet n\'existe pas.');
+        }
+
+        $this->getEntityManager()->remove($project);
+        $this->getEntityManager()->flush();
+    }
+
+
+    public function findByQuery(?string $query): array
+    {
+        if (empty($query)) {
+            return [];
+        }
+
+        return $this->createQueryBuilder('p')
+            ->Where('p.name LIKE :query')
+            ->orWhere('p.type LIKE :query')
+//            ->orWhere('p.tags LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->orderBy('p.created_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

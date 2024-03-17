@@ -1,0 +1,59 @@
+{% use 'form_div_layout.html.twig' %}
+
+{% block form_row %}
+    <div class="mb-6">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}
+
+{% block form_label %}
+    {% if label is not same as(false) %}
+        <label class="block text-white text-lg font-medium mb-2" for="{{ form.vars.id }}">
+            {{ name|capitalize }}
+        </label>
+    {% endif %}
+{% endblock %}
+
+
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        <ul class="text-red-500 text-sm">
+            {% for error in errors %}
+                <li><span class="error">{{ error.message }}</span></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block form_widget_simple %}
+    <input class="form-input shadow appearance-none border rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+           type="{{ type }}" id="{{ id }}" name="{{ full_name }}"
+           value="{{ value }}" placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }} />
+{% endblock %}
+
+{% block text_widget %}
+    {% set type = 'text' %}
+    {{ block('form_widget_simple') }}
+{% endblock %}
+
+{% block email_widget %}
+    {% set type = 'email' %}
+    {{ block('form_widget_simple') }}
+{% endblock %}
+
+{% block textarea_widget %}
+    <textarea
+            class="form-textarea shadow appearance-none border rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            id="{{ id }}" name="{{ full_name }}" placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }}>{{ value }}</textarea>
+{% endblock %}
+
+{% block form_widget_compound %}
+    <div {{ block('widget_container_attributes') }} class="space-y-4">
+        {% if form is not empty %}
+            {{ form_errors(form) }}
+        {% endif %}
+        {{ form_rest(form) }}
+    </div>
+{% endblock %}

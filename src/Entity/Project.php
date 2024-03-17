@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ProjectRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
@@ -18,22 +20,31 @@ class Project
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $project_name = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $project_type = null;
+    private ?string $type = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $project_description = null;
+    private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $project_cover = null;
+    private ?string $cover = null;
 
     #[ORM\Column(length: 255, nullable: true, options: ['default' => 'https://github.com/CallMeTrinity'])]
-    private ?string $project_resource;
+    private ?string $resource;
 
     #[ORM\Column(nullable: true)]
-    private ?string $project_created_at = null;
+    private ?string $created_at = null;
+
+    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'projects')]
+    private Collection $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
 
 
     public function setId(?int $id): static
@@ -46,75 +57,103 @@ class Project
         return $this->id;
     }
 
-    public function getProjectName(): ?string
+    public function getName(): ?string
     {
-        return $this->project_name;
+        return $this->name;
     }
 
-    public function setProjectName(string $project_name): static
+    public function setName(string $name): static
     {
-        $this->project_name = $project_name;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getProjectType(): ?string
+    public function getType(): ?string
     {
-        return $this->project_type;
+        return $this->type;
     }
 
-    public function setProjectType(?string $project_type): static
+    public function setType(?string $type): static
     {
-        $this->project_type = $project_type;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getProjectDescription(): ?string
+    public function getDescription(): ?string
     {
-        return $this->project_description;
+        return $this->description;
     }
 
-    public function setProjectDescription(?string $project_description): static
+    public function setDescription(?string $description): static
     {
-        $this->project_description = $project_description;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getProjectCover(): ?string
+    public function getCover(): ?string
     {
-        return $this->project_cover;
+        return $this->cover;
     }
 
-    public function setProjectCover(?string $project_cover): static
+    public function setCover(?string $cover): static
     {
-        $this->project_cover = $project_cover;
+        $this->cover = $cover;
 
         return $this;
     }
 
-    public function getProjectResource(): ?string
+    public function getResource(): ?string
     {
-        return $this->project_resource;
+        return $this->resource;
     }
 
-    public function setProjectResource(?string $project_resource): static
+    public function setResource(?string $resource): static
     {
-        $this->project_resource = $project_resource;
+        $this->resource = $resource;
 
         return $this;
     }
 
-    public function getProjectCreatedAt(): ?string
+    public function getCreatedAt(): ?string
     {
-        return $this->project_created_at;
+        return $this->created_at;
     }
 
-    public function setProjectCreatedAt(?string $project_created_at): static
+    public function setCreatedAt(?string $created_at): static
     {
-        $this->project_created_at = $project_created_at;
+        $this->created_at = $created_at;
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): static
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+            $tag->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): static
+    {
+        if ($this->tags->removeElement($tag)) {
+            $tag->removeProject($this);
+        }
+
+        return $this;
+    }
+
 }
