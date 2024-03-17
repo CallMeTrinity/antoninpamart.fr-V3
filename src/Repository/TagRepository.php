@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Tag;
+use App\Exception\TagNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,22 @@ class TagRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Tag::class);
+    }
+
+
+    /**
+     * @throws TagNotFoundException
+     */
+    public function deleteTag(int $id): void
+    {
+        $tag = $this->find($id);
+
+        if (!$tag) {
+            throw new TagNotFoundException('Le tag n\'existe pas.');
+        }
+
+        $this->getEntityManager()->remove($tag);
+        $this->getEntityManager()->flush();
     }
 
     //    /**

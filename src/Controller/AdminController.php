@@ -78,9 +78,11 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
-
             $this->addFlash('success', 'Le projet a été mis à jour avec succès.');
+
+            return $this->redirectToRoute('admin_projects');
         }
+
 
         return $this->render('admin/project_edit.html.twig', [
             'form' => $form->createView(),
@@ -89,15 +91,19 @@ class AdminController extends AbstractController
 
 
     #[Route('/admin/project/delete/{id}', name: 'project_delete')]
-    public function projectDelete(int $id):void
+    public function projectDelete(int $id): Response
     {
-        $this->entityManager->getRepository(Project::class)->deleteProject($id);
-        $this->redirectToRoute('admin_projects');
+        $project = $this->entityManager->getRepository(Project::class)->find($id);
+        $this->entityManager->getRepository(Project::class)->deleteProject($project->getId());
+        $this->addFlash('success', 'Projet supprimé : '. $project->getName());
+         return $this->redirectToRoute('admin_projects');
     }
 
     #[Route('/admin/tags', name: 'admin_tags')]
     public function manageTags(Request $request): Response
     {
+        $tags = $this->entityManager->getRepository(Tag::class)->findAll();
+
         $tag = new Tag();
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
@@ -120,7 +126,15 @@ class AdminController extends AbstractController
 
         return $this->render('admin/admin_tags.html.twig', [
             'form' => $form->createView(),
+            'tags' => $tags,
         ]);
+    }
+
+    #[Route('/admin/tags/delete/{id}', name: 'tag_delete')]
+    public function tagDelete(int $id): Response
+    {
+        $this->entityManager->getRepository(Tag::class)->deleteTag($id);
+        return $this->redirectToRoute('admin_tags');
     }
 
 

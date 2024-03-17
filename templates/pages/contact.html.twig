@@ -3,14 +3,12 @@
     <div>
         <turbo-frame id="contact_frame">
             {% form_theme form 'form/theme.html.twig' %}
-
             <div class="container mx-auto mt-6 w-1/2">
                 {{ form_start(form, {'attr': {'class': 'form-container'}}) }}
                 {{ form_widget(form) }}
-                <button type="submit" class="btn-primary">Envoyer</button>
+                <button type="submit" class="btn-primary my-4">Envoyer</button>
                 {{ form_end(form) }}
             </div>
-
         </turbo-frame>
 
     </div>

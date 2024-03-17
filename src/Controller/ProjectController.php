@@ -19,9 +19,6 @@ class ProjectController extends AbstractController
     {
        return $this->render(
            'pages/projets.html.twig',
-           [
-           'projects' =>$this->entityManager->getRepository(Project::class)->listProjects()
-           ]
        );
     }
 
