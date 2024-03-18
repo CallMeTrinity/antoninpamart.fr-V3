@@ -8,8 +8,7 @@
             <nav class="md:flex space-x-10">
                 <a href="{{ path('homepage') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'homepage' %}current{% endif %}">Accueil</a>
                 <a href="{{ path('project') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'project' %}current{% endif %}">Projets</a>
-                <a href="{{ path('about') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'about' %}current{% endif %}">À Propos</a>
-                <a href="{{ path('contact') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'contact' %}current{% endif %}">Contact</a>
+                <a href="{{ path('about') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'about' %}current{% endif %}">Plus d'infos</a>
                 {% if is_granted('ROLE_ADMIN') %}
                     <a class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'admin' %}current{% endif %}" href="{{ path('admin') }}">Admin</a>
                 {% endif %}
