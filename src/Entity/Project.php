@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the AntoninPamartPortfolioV3 project.
+ * This file is part of the Pamart_PortfolioV3 project.
  *
  * (c) Antonin <contact@antoninpamart.fr>
  *
@@ -16,7 +16,6 @@ namespace App\Entity;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\TextType;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 

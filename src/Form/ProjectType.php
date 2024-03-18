@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the AntoninPamartPortfolioV3 project.
+ * This file is part of the Pamart_PortfolioV3 project.
  *
  * (c) Antonin <contact@antoninpamart.fr>
  *
@@ -15,7 +15,6 @@ namespace App\Form;
 
 use App\Entity\Project;
 use App\Entity\Tag;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the AntoninPamartPortfolioV3 project.
+ * This file is part of the Pamart_PortfolioV3 project.
  *
  * (c) Antonin <contact@antoninpamart.fr>
  *
@@ -71,7 +71,6 @@ class Tag
 
         return $this;
     }
-
 
     public function removeProject(Project $project): static
     {

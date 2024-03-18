@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the AntoninPamartPortfolioV3 project.
+ * This file is part of the Pamart_PortfolioV3 project.
  *
  * (c) Antonin <contact@antoninpamart.fr>
  *
@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-/**
+/*
  * Returns the importmap for this application.
  *
  * - "path" is a path inside the asset mapper system. Use the

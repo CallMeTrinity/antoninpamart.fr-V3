@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the AntoninPamartPortfolioV3 project.
+ * This file is part of the Pamart_PortfolioV3 project.
  *
  * (c) Antonin <contact@antoninpamart.fr>
  *
@@ -31,7 +31,7 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    public const  LOGIN_ROUTE = 'login';
+    public const LOGIN_ROUTE = 'login';
 
     public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
