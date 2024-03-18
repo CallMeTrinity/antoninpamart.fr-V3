@@ -28,12 +28,7 @@ class ProjectType extends AbstractType
         $builder
             ->add('name')
             ->add('type')
-            ->add('description', CKEditorType::class,
-                [
-                    'config' => [
-                        'toolbar' => 'full',
-                    ],
-            ])
+            ->add('description')
             ->add('cover')
             ->add('resource')
             ->add('created_at')

@@ -15,7 +15,8 @@
                         <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                             {{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
                             {{ form_widget(form) }}
-                            <button type="submit" class="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <button type="submit"
+                                    class="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                 Ajouter
                             </button>
                             {{ form_end(form) }}
@@ -26,10 +27,15 @@
                     <div class="mt-6">
                         <!-- Ici, intégrer la liste des tags existants -->
                         <ul class="space-y-3">
-                            {% for skill in skills %}
+                            {% for skill in skills|sort|reverse %}
                                 <li class="flex justify-between items-center bg-gray-100 rounded-lg px-6 py-2">
-                                    <span>{{ skill.name|upper }}</span>
-                                    <a href="{{ path('skill_delete', {'id': skill.id}) }}" class="text-sm font-medium text-blue-600 hover:text-blue-500 cursor-pointer">Supprimer</a> <!-- Ajouter le lien de modification -->
+                                    <div>
+                                        <span>[{{ skill.mastery|upper }}]</span>
+                                        <span>{{ skill.name|upper }}</span>
+                                    </div>
+                                    <a href="{{ path('skill_delete', {'id': skill.id}) }}"
+                                       class="text-sm font-medium text-blue-600 hover:text-blue-500 cursor-pointer">Supprimer</a>
+                                    <!-- Ajouter le lien de modification -->
                                 </li>
                             {% else %}
                                 <li>Aucune compétence trouvé.</li>

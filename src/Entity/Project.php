@@ -46,7 +46,7 @@ class Project
     #[ORM\Column(nullable: true)]
     private ?string $created_at = null;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'projects')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'projects')]
     private Collection $tags;
 
     public function __construct()
@@ -146,10 +146,10 @@ class Project
         return $this->tags;
     }
 
-    public function addTag(Tag $tag): static
+    public function addTag(Tag $tag): self
     {
         if (!$this->tags->contains($tag)) {
-            $this->tags->add($tag);
+            $this->tags[] = $tag;
             $tag->addProject($this);
         }
 

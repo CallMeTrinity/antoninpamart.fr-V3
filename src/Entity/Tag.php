@@ -29,7 +29,7 @@ class Tag
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'tags')]
+    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'tags')]
     private Collection $projects;
 
     public function __construct()
@@ -62,14 +62,16 @@ class Tag
         return $this->projects;
     }
 
-    public function addProject(Project $project): static
+    public function addProject(Project $project): self
     {
         if (!$this->projects->contains($project)) {
-            $this->projects->add($project);
+            $this->projects[] = $project;
+            $project->addTag($this); // Cela peut créer une boucle infinie si mal géré
         }
 
         return $this;
     }
+
 
     public function removeProject(Project $project): static
     {
