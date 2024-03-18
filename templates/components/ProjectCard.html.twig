@@ -36,7 +36,17 @@
             </div>
             <div class="flex flex-wrap">
                 {% for tag in project.tags %}
-                    <span class="text-sm text-gray-500">{{ tag.name }}</span>
+                    <span class="text-sm text-gray-500">
+                        <button type="button"
+                                data-action="live#action"
+                                data-live-action-param="setQuery"
+                                data-live-query-param="{{ tag.name }}"
+                                        {% if app.request.get('_route') == 'project' %}
+                                            disabled
+                                        {% endif %}
+                                    >
+                                        {{ tag.name|lower }}
+                                    </button></span>
                     {% if not loop.last %}
                         <p class="text-sm text-gray-500 whitespace-pre">, </p>
                     {% endif %}

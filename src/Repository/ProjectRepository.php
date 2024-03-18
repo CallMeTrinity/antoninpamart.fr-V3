@@ -64,9 +64,10 @@ class ProjectRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('p')
+            ->leftJoin('p.tags', 't')
             ->Where('p.name LIKE :query')
             ->orWhere('p.type LIKE :query')
-//            ->orWhere('p.tags LIKE :query')
+            ->orWhere('t.name LIKE :query')
             ->setParameter('query', '%'.$query.'%')
             ->orderBy('p.created_at', 'DESC')
             ->getQuery()
