@@ -1,10 +1,20 @@
 <?php
 
+/*
+ * This file is part of the AntoninPamartPortfolioV3 project.
+ *
+ * (c) Antonin <contact@antoninpamart.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Project;
 use App\Exception\ProjectNotFoundException;
-use App\Exception\TagNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,7 +57,6 @@ class ProjectRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-
     public function findByQuery(?string $query): array
     {
         if (empty($query)) {
@@ -58,7 +67,7 @@ class ProjectRepository extends ServiceEntityRepository
             ->Where('p.name LIKE :query')
             ->orWhere('p.type LIKE :query')
 //            ->orWhere('p.tags LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
+            ->setParameter('query', '%'.$query.'%')
             ->orderBy('p.created_at', 'DESC')
             ->getQuery()
             ->getResult();

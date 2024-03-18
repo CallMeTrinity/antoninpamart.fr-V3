@@ -1,18 +1,27 @@
 <?php
 
+/*
+ * This file is part of the AntoninPamartPortfolioV3 project.
+ *
+ * (c) Antonin <contact@antoninpamart.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace App\Controller;
 
-use App\Entity\Moi;
-use App\Entity\Skill;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\MoiRepository;
+use App\Repository\SkillRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class AboutController extends AbstractController
 {
-
-    public function __construct(private readonly EntityManagerInterface $entityManager)
+    public function __construct(private readonly SkillRepository $skillRepository, private readonly MoiRepository $moiRepository)
     {
     }
 
@@ -20,12 +29,11 @@ class AboutController extends AbstractController
     public function renderAbout(): Response
     {
         return $this->render('/pages/a_propos.html.twig', [
-                'advanced' => $this->entityManager->getRepository(Skill::class)->advancedSkills(),
-                'intermediate' => $this->entityManager->getRepository(Skill::class)->intermediateSkills(),
-                'basic' => $this->entityManager->getRepository(Skill::class)->baseSkills(),
-                'info' => $this->entityManager->getRepository(Moi::class)->findAll()[0],
+                'advanced' => $this->skillRepository->advancedSkills(),
+                'intermediate' => $this->skillRepository->intermediateSkills(),
+                'basic' => $this->skillRepository->baseSkills(),
+                'info' => $this->moiRepository->findAll()[0],
             ]
         );
     }
-
 }

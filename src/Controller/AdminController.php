@@ -3,9 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Entity\Skill;
 use App\Entity\Tag;
+use App\Exception\ProjectNotFoundException;
+use App\Exception\SkillNotFoundException;
+use App\Exception\TagNotFoundException;
 use App\Form\ProjectType;
+use App\Form\SkillType;
 use App\Form\TagType;
+use App\Repository\ProjectRepository;
+use App\Repository\SkillRepository;
+use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +23,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends AbstractController
 {
-
-    public function __construct(private readonly EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly ProjectRepository $projectRepository,
+        private readonly TagRepository $tagRepository,
+        private readonly SkillRepository $skillRepository,
+    ) {
     }
 
     #[Route('/admin', name: 'admin')]
@@ -29,9 +40,9 @@ class AdminController extends AbstractController
     #[Route(path: '/login', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
-             return $this->redirectToRoute('admin');
-         }
+        if ($this->getUser()) {
+            return $this->redirectToRoute('admin');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -50,7 +61,7 @@ class AdminController extends AbstractController
     #[Route('/admin/projects', name: 'admin_projects')]
     public function manageProjects(Request $request): Response
     {
-        $projects = $this->entityManager->getRepository(Project::class)->findAll();
+        $projects = $this->projectRepository->findAll();
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
 
@@ -83,20 +94,22 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_projects');
         }
 
-
         return $this->render('admin/project_edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-
+    /**
+     * @throws ProjectNotFoundException
+     */
     #[Route('/admin/project/delete/{id}', name: 'project_delete')]
     public function projectDelete(int $id): Response
     {
         $project = $this->entityManager->getRepository(Project::class)->find($id);
-        $this->entityManager->getRepository(Project::class)->deleteProject($project->getId());
-        $this->addFlash('success', 'Projet supprimé : '. $project->getName());
-         return $this->redirectToRoute('admin_projects');
+        $this->projectRepository->deleteProject($project->getId());
+        $this->addFlash('success', 'Projet supprimé : '.$project->getName());
+
+        return $this->redirectToRoute('admin_projects');
     }
 
     #[Route('/admin/tags', name: 'admin_tags')]
@@ -112,7 +125,7 @@ class AdminController extends AbstractController
             $tagName = $tag->getName();
             $existingTag = $this->entityManager->getRepository(Tag::class)->findOneBy(['name' => $tagName]);
 
-            if (!$existingTag){
+            if (!$existingTag) {
                 $this->entityManager->persist($tag);
                 $this->entityManager->flush();
 
@@ -120,8 +133,8 @@ class AdminController extends AbstractController
             } else {
                 $this->addFlash('error', 'Tag existe déjà.');
             }
-            return $this->redirectToRoute('admin_tags');
 
+            return $this->redirectToRoute('admin_tags');
         }
 
         return $this->render('admin/admin_tags.html.twig', [
@@ -130,12 +143,56 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws TagNotFoundException
+     */
     #[Route('/admin/tags/delete/{id}', name: 'tag_delete')]
     public function tagDelete(int $id): Response
     {
-        $this->entityManager->getRepository(Tag::class)->deleteTag($id);
+        $this->tagRepository->deleteTag($id);
+
         return $this->redirectToRoute('admin_tags');
     }
 
+    #[Route('admin/skills', name: 'admin_skills')]
+    public function manageSkills(Request $request): Response
+    {
+        $skills = $this->skillRepository->findAll();
 
+        $skill = new Skill();
+        $form = $this->createForm(SkillType::class, $skill);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $skillName = $skill->getName();
+            $existingSkill = $this->skillRepository->findOneBy(['name' => $skillName]);
+
+            if (!$existingSkill) {
+                $this->entityManager->persist($skill);
+                $this->entityManager->flush();
+
+                $this->addFlash('success', 'Compétence ajoutés avec succès.');
+            } else {
+                $this->addFlash('error', 'Compétence existe déjà.');
+            }
+
+            return $this->redirectToRoute('admin_skills');
+        }
+        return $this->render('admin/admin_skills.html.twig', [
+            'form' => $form->createView(),
+            'skills' => $skills,
+        ]);
+    }
+
+
+    /**
+     * @throws SkillNotFoundException
+     */
+    #[Route('/admin/skills/delete/{id}', name: 'skill_delete')]
+    public function deleteSkill(int $id): Response
+    {
+        $this->skillRepository->deleteSkill($id);
+
+        return $this->redirectToRoute('admin_skills');
+    }
 }

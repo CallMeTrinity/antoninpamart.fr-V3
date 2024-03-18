@@ -1,8 +1,20 @@
 <?php
 
+/*
+ * This file is part of the AntoninPamartPortfolioV3 project.
+ *
+ * (c) Antonin <contact@antoninpamart.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Skill;
+use App\Exception\SkillNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -28,8 +40,9 @@ class SkillRepository extends ServiceEntityRepository
             ->where('s.mastery = 2')
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
+
     public function intermediateSkills()
     {
         return $this->createQueryBuilder('s')
@@ -37,8 +50,9 @@ class SkillRepository extends ServiceEntityRepository
             ->where('s.mastery = 1')
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
+
     public function baseSkills()
     {
         return $this->createQueryBuilder('s')
@@ -46,8 +60,21 @@ class SkillRepository extends ServiceEntityRepository
             ->where('s.mastery = 0')
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
+
+    public function deleteSkill(int $id): void
+    {
+        $skill = $this->find($id);
+
+        if (!$skill) {
+            throw new SkillNotFoundException('La compétence n\'existe pas.');
+        }
+
+        $this->getEntityManager()->remove($skill);
+        $this->getEntityManager()->flush();
+    }
+
     //    /**
     //     * @return Skill[] Returns an array of Skill objects
     //     */

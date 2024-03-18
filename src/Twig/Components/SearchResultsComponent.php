@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the AntoninPamartPortfolioV3 project.
+ *
+ * (c) Antonin <contact@antoninpamart.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace App\Twig\Components;
 
 use App\Repository\ProjectRepository;
@@ -24,9 +35,10 @@ class SearchResultsComponent
 
     public function getProjects(): array
     {
-        if (empty($this->query)){
+        if (empty($this->query)) {
             return $this->projectRepository->listProjects();
         }
+
         return $this->projectRepository->findByQuery($this->query);
     }
 
