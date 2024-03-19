@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/theme.html.twig' %}
+{% block body %}
+    <main class="min-h-dvh flex flex-col justify-center">
+        <div class="w-1/2 mx-auto">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+            <button type="submit" class="btn-primary mt-2">Envoyer</button>
+        </div>
+    </main>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
