@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <title>{% block title %}Antonin Pamart{% endblock %}</title>
         <link rel="icon" href="{{ asset('media/tntLogo.svg') }}">
-        {% block stylesheets %}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">        {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
@@ -13,7 +15,7 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body class="bg-gray-900">
+    <body class="bg-gray-900 font-body">
     {{ component('_header') }}
     {% for message in app.flashes('success') %}
         <div data-controller="flash" class="alert alert-success fixed top-5 right-5 bg-green-500 text-white text-sm py-2 px-4 rounded-lg shadow-md transition-opacity" role="alert">
@@ -26,7 +28,9 @@
         </div>
     {% endfor %}
 
-        {% block body %}{% endblock %}
+        {% block body %}
+
+        {% endblock %}
     {{ component('_footer') }}
     </body>
 </html>

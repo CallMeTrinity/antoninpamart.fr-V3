@@ -73,4 +73,14 @@ class ProjectRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findLast4Projects()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.created_at', 'DESC')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+        
+    }
 }

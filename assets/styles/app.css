@@ -3,6 +3,7 @@
 @import '~@fortawesome/fontawesome-free/css/solid';
 @import '~@fortawesome/fontawesome-free/css/brands';
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,14 +28,66 @@
         padding: 0.5rem;
     }
 
-    @layer components {
-        .btn-primary {
-            @apply
-            bg-black text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out
-            hover:bg-white hover:text-black hover:border-black hover:border
-            active:bg-gray-800 active:text-white active:border-gray-800;
-        }
+    .btn-primary {
+        @apply
+        bg-black text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out
+        hover:bg-white hover:text-black hover:border-black hover:border
+        active:bg-gray-800 active:text-white active:border-gray-800;
     }
+
+    .btn-red{
+        @apply
+        mt-6 inline-block bg-red-500 text-white font-bold py-2 px-6 rounded hover:bg-red-600 transition duration-300
+    }
+}
+
+@keyframes move {
+    0% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(20px) translateY(-20px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
+@keyframes spinAndZoom {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(360deg) scale(1.5); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+@keyframes invert {
+    0%, 100% {  background-color: #cc8888; }
+    50% { background-color: #4d4d4d
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+}
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+
+
+.animated-bg-move {
+    animation: move 20s ease-in-out infinite;
+}
+
+.animated-bg-spinAndZoom {
+    animation: spinAndZoom 20s linear infinite;
+}
+
+.animated-bg-pulse {
+    animation: pulse 20s ease-in-out infinite;
+}
+
+.animated-bg-invert {
+    animation: invert 20s ease-in-out infinite;
+
 }
 
 
