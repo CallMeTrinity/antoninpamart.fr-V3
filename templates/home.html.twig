@@ -1,53 +1,72 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
     <main class="text-white">
-        <section class="pt-20 lg:pt-40 pb-40 relative">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-wrap justify-center text-center">
-                    <div class="w-full lg:w-6/12 px-4">
-                        <h2 class="text-4xl font-semibold">Bienvenue sur mon Portfolio</h2>
-                        <p class="text-lg leading-relaxed mt-4 mb-4 text-gray-500">Je suis Antonin, développeur
-                            web.</p>
-                    </div>
+
+        <section class="min-h-screen flex justify-between items-center p-10 md:p-20 relative">
+            <div class="animated-bg-move rounded-full absolute bg-gray-500 w-32 h-32 top-40 left-10 -z-10" ></div>
+            <div class="animated-bg-invert animated-bg-move rounded-full absolute w-52 h-52 top-50 left-64 -z-10" ></div>
+            <div class="animated-bg-spinAndZoom rounded-full absolute bg-red-400 w-24 h-24 top-36 left-20 -z-10"></div>
+            <div class="animated-bg-pulse rounded-full absolute bg-white w-28 h-28 top-20 right-20 -z-10"></div>
+
+            <div>
+                <h1 class="text-4xl md:text-6xl lg:text-9xl font-bold uppercase leading-none">
+                    <span>Adapter</span><br>
+                    <span class="text-red-500">Optimiser</span><br>
+                    <span>Produire</span>
+                </h1>
+                <p class="mt-4 text-lg md:text-xl max-w-2xl"><q>Je suis un leader interactif, un fainéant hyperactif et parfois un peu radioactif.
+                    </q> <br> Bienvenue sur mon portfolio.</p>
+                <a href="{{ path('project') }}" class="btn-red">Voir mes projets</a>
+            </div>
+            <div class="hidden lg:flex flex-col items-end w-full">
+                <img src="{{ asset('media/skully.svg') }}" class="w-1/2" alt="">
+                <p class="text-gray-500 text-center w-1/2 text-sm">Ce n'est pas une tête de mort mais une prise <a href="https://images.ctfassets.net/j4m9q0fykyy4/5XgZ6XZPaFA2mvi1oZCeFq/279c8688b4ad7447874cc7bae87d8116/2021-12-prise-rj45.jpg" target="_blank">ethernet</a></p>
+            </div>
+        </section>
+
+
+        <section id="projects" class="min-h-screen p-10 px-4 md:px-0">
+            <div class="max-w-6xl mx-auto flex flex-col items-center">
+                <h2 class="text-3xl font-bold mb-10 font-title uppercase text-center">Mes derniers projets</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    {% for project in projects %}
+                        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                            <img src="{{ asset(project.cover) }}" alt="{{ project.name }}" class="w-full h-48 object-cover transition duration-300 ease-in-out transform hover:scale-110">
+                            <div class="p-6">
+                                <h3 class="font-bold text-xl mb-2 hover:text-red-500 transition duration-300">{{ project.name }}</h3>
+                                <a href="{{ project.resource }}" class="text-gray-400 hover:text-white transition duration-300" target="_blank">Voir</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a href="{{ path('search') }}" class="btn-red">Rechercher plus de projets</a>
+            </div>
+        </section>
+        <section class="py-10 bg-gray-900 text-white">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-3xl font-bold mb-8 text-center font-title uppercase">Me Suivre</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
+                    <a href="https://linkedin.com/in/antoninpamart" target="_blank" class="flex flex-col items-center transition duration-300 hover:text-blue-700">
+                        <i class="fab fa-linkedin fa-3x hover:scale-110 transition-all"></i>
+                        <span class="mt-2">LinkedIn</span>
+                    </a>
+                    <a href="https://instagram.com/antonin_pamart" target="_blank" class="flex flex-col items-center transition duration-300 hover:text-pink-600">
+                        <i class="fab fa-instagram fa-3x hover:scale-110 transition-all"></i>
+                        <span class="mt-2">Instagram</span>
+                    </a>
+                    <a href="mailto:contact@antonin.pamart.fr" target="_blank" class="flex flex-col items-center transition duration-300 hover:text-red-500">
+                        <i class="fas fa-envelope fa-3x hover:scale-110 transition-all"></i>
+                        <span class="mt-2">Mail</span>
+                    </a>
+                    <a href="https://github.com/CallMeTrinity" target="_blank" class="flex flex-col items-center transition duration-300 hover:text-gray-400">
+                        <i class="fab fa-github fa-3x hover:scale-110 transition-all"></i>
+                        <span class="mt-2">GitHub</span>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <section class="relative py-20">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-wrap">
-                    <div class="w-full md:w-4/12 px-4 text-center">
-                        <div class="text-gray-800 w-12 h-12 shadow-lg rounded-full inline-flex items-center justify-center">
-                            <img src="{{ asset('media/logoProjets.svg') }}" alt="">
-                        </div>
-                        <h6 class="text-xl mt-5 font-semibold text-white"><a href="{{ path('project') }}">Projets</a></h6>
-                        <p class="mt-2 mb-4 text-gray-500">Découvrez mes projets récents, reflétant mes compétences
-                            et mon expertise.</p>
-                    </div>
 
-                    <div class="w-full md:w-4/12 px-4 text-center">
-                        <div class="text-gray-800 w-12 h-12 shadow-lg bg-white rounded-full inline-flex items-center justify-center">
-                            <img src="{{ asset('media/logoAbout.svg') }}" alt="">
-                        </div>
-                        <h6 class="text-xl mt-5 font-semibold text-white"><a href="{{ path('about') }}">À Propos</a></h6>
-                        <p class="mt-2 mb-4 text-gray-500">En savoir plus sur moi, mon parcours et ce qui me motive
-                            dans le développement web.</p>
-                    </div>
-
-                    <div class="w-full md:w-4/12 px-4 text-center">
-                        <turbo-frame id="contact_frame">
-                        <div class="text-gray-800 w-12 h-12 shadow-lg bg-white rounded-full inline-flex items-center justify-center">
-                            <img src="{{ asset('media/logoContact.svg') }}" alt="">
-                        </div>
-                        <h6 class="text-xl mt-5 font-semibold text-white"><a href="{{ path('contact') }}">Contact</a></h6>
-                        <p class="mt-2 mb-4 text-gray-500">N'hésitez pas à me contacter pour discuter de vos projets
-                            ou pour toute question.</p>
-                        </turbo-frame>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
-{% endblock body %}
+{% endblock %}
