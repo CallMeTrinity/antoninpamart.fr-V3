@@ -27,8 +27,8 @@
 
 
         <section id="projects" class="min-h-screen p-10 px-4 md:px-0">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl font-bold mb-10 font-title uppercase">Mes derniers projets</h2>
+            <div class="max-w-6xl mx-auto flex flex-col items-center">
+                <h2 class="text-3xl font-bold mb-10 font-title uppercase text-center">Mes derniers projets</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                     {% for project in projects %}
                         <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
@@ -38,14 +38,14 @@
                                 <a href="{{ project.resource }}" class="text-gray-400 hover:text-white transition duration-300" target="_blank">Voir</a>
                             </div>
                         </div>
-
                     {% endfor %}
                 </div>
+                <a href="{{ path('search') }}" class="btn-red">Rechercher plus de projets</a>
             </div>
         </section>
         <section class="py-10 bg-gray-900 text-white">
             <div class="max-w-6xl mx-auto px-4">
-                <h2 class="text-3xl font-bold mb-8 text-center">Me Suivre</h2>
+                <h2 class="text-3xl font-bold mb-8 text-center font-title uppercase">Me Suivre</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
                     <a href="https://linkedin.com/in/antoninpamart" target="_blank" class="flex flex-col items-center transition duration-300 hover:text-blue-700">
                         <i class="fab fa-linkedin fa-3x hover:scale-110 transition-all"></i>
