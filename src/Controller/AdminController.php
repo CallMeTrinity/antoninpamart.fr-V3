@@ -213,12 +213,20 @@ class AdminController extends AbstractController
     #[Route('admin/me', name: 'admin_me')]
     public function manageTrinity(Request $request): Response
     {
-        $form = $this->createForm(TrinityType::class);
         $me = $this->moiRepository->findOneBy(['name' => 'Antonin']);
+        $form = $this->createForm(TrinityType::class, $me);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Le profil a été mis à jour avec succès.');
+
+            return $this->redirectToRoute('admin_me');
+        }
 
         return $this->render('admin/admin_trinity.html.twig', [
             'me' => $me,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 }
