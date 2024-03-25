@@ -22,6 +22,8 @@ use App\Exception\TagNotFoundException;
 use App\Form\ProjectType;
 use App\Form\SkillType;
 use App\Form\TagType;
+use App\Form\TrinityType;
+use App\Repository\MoiRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\SkillRepository;
 use App\Repository\TagRepository;
@@ -39,6 +41,7 @@ class AdminController extends AbstractController
         private readonly ProjectRepository $projectRepository,
         private readonly TagRepository $tagRepository,
         private readonly SkillRepository $skillRepository,
+        private readonly MoiRepository $moiRepository,
     ) {
     }
 
@@ -205,5 +208,25 @@ class AdminController extends AbstractController
         $this->skillRepository->deleteSkill($id);
 
         return $this->redirectToRoute('admin_skills');
+    }
+
+    #[Route('admin/me', name: 'admin_me')]
+    public function manageTrinity(Request $request): Response
+    {
+        $me = $this->moiRepository->findOneBy(['name' => 'Antonin']);
+        $form = $this->createForm(TrinityType::class, $me);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Le profil a été mis à jour avec succès.');
+
+            return $this->redirectToRoute('admin_me');
+        }
+
+        return $this->render('admin/admin_trinity.html.twig', [
+            'me' => $me,
+            'form' => $form->createView(),
+        ]);
     }
 }

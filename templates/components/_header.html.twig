@@ -1,11 +1,16 @@
-<header class="bg-gray-800 fixed bg-opacity-50 w-full z-50">
+<header class="bg-gray-800 fixed w-full z-50 transition-opacity duration-500 bg-opacity-70 hover:bg-opacity-90" data-controller="hamburger">
     <div class="container mx-auto px-4 py-5">
         <div class="flex items-center justify-between">
-            <div class="flex-shrink-0">
-                <a href="{{ path('homepage') }}" class="text-white text-2xl font-bold "><img src="{{ asset('media/tntLogo.svg') }}" alt="" class="hover:scale-110 active:scale-90 transition-all ease-in-out"></a>
+            <div class="flex-shrink-0 transform hover:rotate-3 transition-transform duration-300 hidden md:flex">
+                <a href="{{ path('homepage') }}">
+                    <img src="{{ asset('media/tntLogo.svg') }}" alt="" class="h-10 md:h-12">
+                </a>
             </div>
+            <button data-action="click->hamburger#toggleMenu" class="md:hidden p-2 rounded bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all">
+                <i class="fas fa-bars text-white"></i>
+            </button>
 
-            <nav class="md:flex space-x-10">
+            <nav data-hamburger-target="menu" class="hidden justify-center md:flex md:items-center space-x-10">
                 <a href="{{ path('homepage') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'homepage' %}current{% endif %}">Accueil</a>
                 <a href="{{ path('project') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'project' %}current{% endif %}">Projets</a>
                 <a href="{{ path('about') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'about' %}current{% endif %}">Plus d'infos</a>
@@ -21,6 +26,7 @@
                 <a href="{{ path('search') }}" class="p-2 flex items-center justify-center text-lg text-white group-hover:text-black group-hover:scale-110 transform transition-all {% if app.request.get('_route') == 'search' %}text-black{% endif %}">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </a>
+
             </div>
         </div>
     </div>

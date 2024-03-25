@@ -36,6 +36,9 @@ class Moi
     #[ORM\Column(nullable: true)]
     private ?int $age = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name = 'Antonin';
+
     public function getId(): ?int
     {
         return $this->id;
@@ -73,6 +76,18 @@ class Moi
     public function setAge(?int $age): static
     {
         $this->age = $age;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
