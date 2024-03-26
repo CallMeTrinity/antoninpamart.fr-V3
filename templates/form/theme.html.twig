@@ -29,7 +29,7 @@
 
 {% block form_widget_simple %}
     <input class="form-input shadow appearance-none border rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-           type="{{ type }}" id="{{ id }}" name="{{ full_name }}"
+           type="{{ type }}"
            value="{{ value }}" placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }} />
 {% endblock %}
 
@@ -46,7 +46,7 @@
 {% block textarea_widget %}
     <textarea
             class="form-textarea shadow appearance-none border rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            id="{{ id }}" name="{{ full_name }}" placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }}>{{ value }}</textarea>
+            placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }}>{{ value }}</textarea>
 {% endblock %}
 
 {% block form_widget_compound %}
