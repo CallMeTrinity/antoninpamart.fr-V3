@@ -29,11 +29,11 @@ class AboutController extends AbstractController
     public function renderAbout(): Response
     {
         return $this->render('/pages/a_propos.html.twig', [
-                'advanced' => $this->skillRepository->advancedSkills(),
-                'intermediate' => $this->skillRepository->intermediateSkills(),
-                'basic' => $this->skillRepository->baseSkills(),
-                'info' => $this->moiRepository->findAll()[0],
-            ]
+            'advanced' => $this->skillRepository->advancedSkills(),
+            'intermediate' => $this->skillRepository->intermediateSkills(),
+            'basic' => $this->skillRepository->baseSkills(),
+            'info' => $this->moiRepository->findAll()[0],
+        ]
         );
     }
 }

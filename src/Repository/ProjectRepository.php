@@ -81,6 +81,5 @@ class ProjectRepository extends ServiceEntityRepository
             ->setMaxResults(4)
             ->getQuery()
             ->getResult();
-        
     }
 }
