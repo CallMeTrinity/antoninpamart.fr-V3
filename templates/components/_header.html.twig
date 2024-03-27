@@ -1,4 +1,5 @@
-<header class="bg-gray-800 fixed w-full z-50 transition-opacity duration-500 bg-opacity-70 hover:bg-opacity-90" data-controller="hamburger">
+<header class="bg-gray-800 fixed w-full z-50 transition-opacity duration-500 bg-opacity-70 hover:bg-opacity-90"
+        data-controller="hamburger">
     <div class="container mx-auto px-4 py-5">
         <div class="flex items-center justify-between">
             <div class="flex-shrink-0 transform hover:rotate-3 transition-transform duration-300 hidden md:flex">
@@ -6,16 +7,22 @@
                     <img src="{{ asset('media/tntLogo.svg') }}" alt="" class="h-10 md:h-12">
                 </a>
             </div>
-            <button data-action="click->hamburger#toggleMenu" class="md:hidden p-2 rounded bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all">
+            <button data-action="click->hamburger#toggleMenu"
+                    class="md:hidden p-2 rounded bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all">
                 <i class="fas fa-bars text-white"></i>
             </button>
 
             <nav data-hamburger-target="menu" class="hidden justify-center md:flex md:items-center space-x-10">
-                <a href="{{ path('homepage') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'homepage' %}current{% endif %}">Accueil</a>
-                <a href="{{ path('project') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'project' %}current{% endif %}">Projets</a>
-                <a href="{{ path('about') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'about' %}current{% endif %}">Plus d'infos</a>
+                <a href="{{ path('homepage') }}"
+                   class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'homepage' %}current{% endif %}">Accueil</a>
+                <a href="{{ path('project') }}"
+                   class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'project' %}current{% endif %}">Projets</a>
+                <a href="{{ path('about') }}"
+                   class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'about' %}current{% endif %}">Plus
+                    d'infos</a>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'admin' %}current{% endif %}" href="{{ path('admin') }}">Admin</a>
+                    <a class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'admin' %}current{% endif %}"
+                       href="{{ path('admin') }}">Admin</a>
                 {% endif %}
 
             </nav>
@@ -23,7 +30,8 @@
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <a class="btn-primary" href="{{ path('logout') }}">Logout</a>
                 {% endif %}
-                <a href="{{ path('search') }}" class="p-2 flex items-center justify-center text-lg text-white group-hover:text-black group-hover:scale-110 transform transition-all {% if app.request.get('_route') == 'search' %}text-black{% endif %}">
+                <a href="{{ path('search') }}"
+                   class="p-2 flex items-center justify-center text-lg group-hover:text-black group-hover:scale-110 transform transition-all {% if app.request.get('_route') == 'search' %}text-black{% else %} text-white {% endif %}">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </a>
 
