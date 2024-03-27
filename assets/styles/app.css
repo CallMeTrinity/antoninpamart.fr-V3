@@ -13,21 +13,6 @@
         @apply text-blue-600 font-semibold underline decoration-2 underline-offset-4;
     }
 
-    .bg-advanced {
-        background-color: #3182ce;
-        padding: 0.5rem;
-    }
-
-    .bg-intermediate {
-        background-color: #48bb78;
-        padding: 0.5rem;
-    }
-
-    .bg-basic {
-        background-color: #b7a04f;
-        padding: 0.5rem;
-    }
-
     .btn-primary {
         @apply
         bg-black text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out
@@ -72,6 +57,20 @@
 }
 
 
+.bg-advanced {
+    background-color: #3182ce;
+    padding: 0.5rem;
+}
+
+.bg-intermediate {
+    background-color: #48bb78;
+    padding: 0.5rem;
+}
+
+.bg-basic {
+    background-color: #b7a04f;
+    padding: 0.5rem;
+}
 
 .animated-bg-move {
     animation: move 20s ease-in-out infinite;
