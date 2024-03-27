@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Pamart_PortfolioV3 project.
+ * This file is part of the antoninpamart.fr-V3 project.
  *
  * (c) Antonin <contact@antoninpamart.fr>
  *
@@ -16,7 +16,6 @@ namespace App\Form;
 use App\Entity\Moi;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

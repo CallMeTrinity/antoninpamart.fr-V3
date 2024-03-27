@@ -1,8 +1,8 @@
 @import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
 @import '~@fortawesome/fontawesome-free/css/regular';
 @import '~@fortawesome/fontawesome-free/css/solid';
 @import '~@fortawesome/fontawesome-free/css/brands';
-@import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 @tailwind base;
 @tailwind components;
@@ -11,21 +11,6 @@
 @layer components {
     .current {
         @apply text-blue-600 font-semibold underline decoration-2 underline-offset-4;
-    }
-
-    .bg-advanced {
-        background-color: #3182ce;
-        padding: 0.5rem;
-    }
-
-    .bg-intermediate {
-        background-color: #48bb78;
-        padding: 0.5rem;
-    }
-
-    .bg-basic {
-        background-color: #b7a04f;
-        padding: 0.5rem;
     }
 
     .btn-primary {
@@ -72,6 +57,20 @@
 }
 
 
+.bg-advanced {
+    background-color: #3182ce;
+    padding: 0.5rem;
+}
+
+.bg-intermediate {
+    background-color: #48bb78;
+    padding: 0.5rem;
+}
+
+.bg-basic {
+    background-color: #b7a04f;
+    padding: 0.5rem;
+}
 
 .animated-bg-move {
     animation: move 20s ease-in-out infinite;

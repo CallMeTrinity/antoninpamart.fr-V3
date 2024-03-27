@@ -1,29 +1,87 @@
-<header class="bg-gray-800 fixed w-full z-50 transition-opacity duration-500 bg-opacity-70 hover:bg-opacity-90" data-controller="hamburger">
+<header class="bg-gray-800 md:fixed block w-full z-50 transition-opacity duration-500 bg-opacity-70 hover:bg-opacity-90"
+        data-controller="hamburger">
     <div class="container mx-auto px-4 py-5">
-        <div class="flex items-center justify-between">
+        <button data-action="click->hamburger#toggleMenu"
+                class="md:hidden fixed z-10 p-2 rounded bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all">
+            <i class="fas fa-bars text-white"></i>
+        </button>
+        <div class="flex items-center justify-end md:justify-between">
             <div class="flex-shrink-0 transform hover:rotate-3 transition-transform duration-300 hidden md:flex">
                 <a href="{{ path('homepage') }}">
                     <img src="{{ asset('media/tntLogo.svg') }}" alt="" class="h-10 md:h-12">
                 </a>
             </div>
-            <button data-action="click->hamburger#toggleMenu" class="md:hidden p-2 rounded bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all">
-                <i class="fas fa-bars text-white"></i>
-            </button>
 
-            <nav data-hamburger-target="menu" class="hidden justify-center md:flex md:items-center space-x-10">
-                <a href="{{ path('homepage') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'homepage' %}current{% endif %}">Accueil</a>
-                <a href="{{ path('project') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'project' %}current{% endif %}">Projets</a>
-                <a href="{{ path('about') }}" class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'about' %}current{% endif %}">Plus d'infos</a>
+
+            <nav class="hidden justify-center md:flex md:items-center space-x-10">
+                <a href="{{ path('homepage') }}"
+                   class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'homepage' %}current{% endif %}">Accueil</a>
+                <a href="{{ path('project') }}"
+                   class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'project' %}current{% endif %}">Projets</a>
+                <a href="{{ path('about') }}"
+                   class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'about' %}current{% endif %}">Plus
+                    d'infos</a>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'admin' %}current{% endif %}" href="{{ path('admin') }}">Admin</a>
+                    <a class="text-gray-300 hover:text-white {% if app.request.get('_route') == 'admin' %}current{% endif %}"
+                       href="{{ path('admin') }}">Admin</a>
                 {% endif %}
-
-            </nav>
-            <div class="flex items-center rounded-full bg-gray-900 hover:bg-white group transition-all {% if app.request.get('_route') == 'search' %}bg-white{% endif %}">
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <a class="btn-primary" href="{{ path('logout') }}">Logout</a>
                 {% endif %}
-                <a href="{{ path('search') }}" class="p-2 flex items-center justify-center text-lg text-white group-hover:text-black group-hover:scale-110 transform transition-all {% if app.request.get('_route') == 'search' %}text-black{% endif %}">
+
+
+            </nav>
+            <nav data-hamburger-target="menu"
+                 class="fixed top-0 left-0 h-full w-full bg-gray-800 bg-opacity-90 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out">
+                <div class="flex justify-end items-center m-6">
+                    <button data-action="click->hamburger#toggleMenu"
+                            class="flex justify-center items-center p-2 bg-white group w-10 h-10 active:scale-90 text-black rounded-full">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+
+                <ul class="flex flex-col mt-12 items-center h-full space-y-6">
+                    <li>
+                        <a href="{{ path('homepage') }}">
+                            <img src="{{ asset('media/tntLogo.svg') }}" alt="" class="h-10 md:h-12">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('homepage') }}"
+                           class="text-white text-lg {{ app.request.get('_route') == 'homepage' ? 'font-semibold underline' : '' }}">Accueil</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('project') }}"
+                           class="text-white text-lg {{ app.request.get('_route') == 'project' ? 'font-semibold underline' : '' }}">Projets</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('about') }}"
+                           class="text-white text-lg {{ app.request.get('_route') == 'about' ? 'font-semibold underline' : '' }}">Plus
+                            d'infos</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('contact') }}"
+                           class="text-white text-lg {{ app.request.get('_route') == 'contact' ? 'font-semibold underline' : '' }}">Contact</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('admin') }}"
+                               class="text-white text-lg {{ app.request.get('_route') == 'admin' ? 'font-semibold underline' : '' }}">Admin</a>
+                        </li>
+                    {% endif %}
+
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <li>
+                            <a class="btn-primary" href="{{ path('logout') }}">Logout</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+            <div class="flex items-center rounded-full bg-gray-900 hover:bg-white group transition-all {% if app.request.get('_route') == 'search' %}bg-white{% endif %}">
+
+                <a href="{{ path('search') }}"
+                   class="p-2 flex items-center justify-center text-lg group-hover:text-black group-hover:scale-110 transform transition-all {% if app.request.get('_route') == 'search' %}text-black{% else %} text-white {% endif %}">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </a>
 

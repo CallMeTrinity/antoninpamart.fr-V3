@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the FileManager project.
+ * This file is part of the antoninpamart.fr-V3 project.
  *
- * (c) Mezcalito <contact@mezcalito.fr>
+ * (c) Antonin <contact@antoninpamart.fr>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,7 +12,7 @@
 declare(strict_types=1);
 
 $header = <<<'HEADER'
-    This file is part of the Pamart_PortfolioV3 project.
+    This file is part of the antoninpamart.fr-V3 project.
 
     (c) Antonin <contact@antoninpamart.fr>
 
@@ -22,9 +22,12 @@ $header = <<<'HEADER'
 
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
-    ->exclude([
-        '**vendor**',
-    ])
+    ->exclude('vendor')
+    ->exclude('var')
+    ->exclude('node_modules')
+    ->notPath('public/build')
+    ->ignoreDotFiles(true)
+    ->ignoreVCS(true)
 ;
 
 return (new PhpCsFixer\Config())

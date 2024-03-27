@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Pamart_PortfolioV3 project.
+ * This file is part of the antoninpamart.fr-V3 project.
  *
  * (c) Antonin <contact@antoninpamart.fr>
  *
@@ -81,6 +81,5 @@ class ProjectRepository extends ServiceEntityRepository
             ->setMaxResults(4)
             ->getQuery()
             ->getResult();
-        
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Pamart_PortfolioV3 project.
+ * This file is part of the antoninpamart.fr-V3 project.
  *
  * (c) Antonin <contact@antoninpamart.fr>
  *
@@ -25,7 +25,7 @@ class SearchResultsComponent
 {
     use DefaultActionTrait;
 
-    #[LiveProp(writable: true, url: true)]
+    #[LiveProp(writable: true)]
     public string $query = '';
 
     public function __construct(

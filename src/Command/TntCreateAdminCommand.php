@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Pamart_PortfolioV3 project.
+ * This file is part of the antoninpamart.fr-V3 project.
  *
  * (c) Antonin <contact@antoninpamart.fr>
  *
@@ -24,12 +24,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
     name: 'tnt:create-admin',
-    description: 'Add a short description for your command',
+    description: 'Creates admin user',
 )]
 class TntCreateAdminCommand extends Command
 {
-    private $entityManager;
-    private $passwordHasher;
+    private EntityManagerInterface $entityManager;
+    private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
     {
