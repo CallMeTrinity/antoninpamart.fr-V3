@@ -8,7 +8,6 @@ export default class extends Controller {
 
 
     selectImage() {
-        console.log(this.imageValue);
         const selectedImageEvent = new CustomEvent('selectedImage', {
             detail: {
                 image: this.imageValue,
