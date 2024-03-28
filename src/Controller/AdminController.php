@@ -253,22 +253,20 @@ class AdminController extends AbstractController
             /** @var UploadedFile $ppFile */
             $ppFile = $form->get('fileUpload')->getData();
 
-            if ($ppFile) {
-                $originalFilename = pathinfo($ppFile->getClientOriginalName(), \PATHINFO_FILENAME);
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$ppFile->guessExtension();
+            $originalFilename = pathinfo($ppFile->getClientOriginalName(), \PATHINFO_FILENAME);
+            $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$ppFile->guessExtension();
 
-                try {
-                    $ppFile->move(
-                        $this->getParameter('pp_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'An error occurred while uploading the file');
-                }
-
-                $me->setPp($newFilename);
+            try {
+                $ppFile->move(
+                    $this->getParameter('pp_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                $this->addFlash('error', 'An error occurred while uploading the file');
             }
+
+            $me->setPp($newFilename);
 
             $this->entityManager->flush();
             $this->addFlash('success', 'Le profil a été mis à jour avec succès.');
