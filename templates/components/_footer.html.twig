@@ -1,28 +1,28 @@
 <footer class="bg-gray-800 text-gray-400">
-    <div class="container mx-auto px-4 py-10">
-        <div class="flex flex-wrap">
-            <div class="w-full lg:w-1/4 md:w-1/2 px-4">
-                <h2 class="text-white text-lg mb-3">Pages</h2>
-                <ul class="list-none mb-6">
-                    <li><a href="{{ path('project') }}" class="text-gray-400 hover:text-white">Projets</a></li>
-                    <li><a href="{{ path('about') }}" class="text-gray-400 hover:text-white">À Propos</a></li>
-                    <li><a href="{{ path('contact') }}" class="text-gray-400 hover:text-white">Contact</a></li>
+    <div class="container mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h2 class="text-xl text-white mb-4">Pages</h2>
+                <ul class="space-y-2">
+                    <li><a href="{{ path('project') }}" class="transition-colors duration-200 hover:text-white">Projets</a></li>
+                    <li><a href="{{ path('about') }}" class="transition-colors duration-200 hover:text-white">À Propos</a></li>
+                    <li><a href="{{ path('contact') }}" class="transition-colors duration-200 hover:text-white">Contact</a></li>
                 </ul>
             </div>
 
-            <div class="w-full lg:w-1/4 md:w-1/2 px-4">
-                <h2 class="text-white text-lg mb-3">Réseaux Sociaux</h2>
-                <ul class="list-none mb-6">
-                    <li><a href="https://www.instagram.com/antonin_pamart/" class="text-gray-400 hover:text-white">Instagram</a></li>
-                    <li><a href="https://www.linkedin.com/in/antoninpamart/" class="text-gray-400 hover:text-white">LinkedIn</a></li>
-                    <li><a href="https://github.com/CallMeTrinity" class="text-gray-400 hover:text-white">GitHub</a></li>
-                    <li><a href="mailto:contact@antoninpamart.fr" class="text-gray-400 hover:text-white">Email</a></li>
+            <div>
+                <h2 class="text-xl text-white mb-4">Réseaux Sociaux</h2>
+                <ul class="space-y-2">
+                    <li><a href="https://www.instagram.com/antonin_pamart/" target="_blank" class="transition-colors duration-200 hover:text-white">Instagram</a></li>
+                    <li><a href="https://www.linkedin.com/in/antoninpamart/" target="_blank" class="transition-colors duration-200 hover:text-white">LinkedIn</a></li>
+                    <li><a href="https://github.com/CallMeTrinity" target="_blank" class="transition-colors duration-200 hover:text-white">GitHub</a></li>
+                    <li><a href="mailto:contact@antoninpamart.fr" target="_blank" class="transition-colors duration-200 hover:text-white">Email</a></li>
                 </ul>
             </div>
 
-            <div class="w-full lg:w-1/2 md:w-full px-4">
-                <h2 class="text-white text-lg mb-3">Mentions Légales</h2>
-                <p class="mt-2 mb-4 text-gray-500">Tous droits réservés. Reproduction partielle ou totale interdite sans l'autorisation écrite de l'auteur.</p>
+            <div>
+                <h2 class="text-xl text-white mb-4">Mentions Légales</h2>
+                <p class="text-gray-500">Tous droits réservés. Reproduction partielle ou totale interdite sans l'autorisation écrite de l'auteur.</p>
             </div>
         </div>
     </div>
