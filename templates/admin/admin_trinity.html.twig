@@ -1,18 +1,26 @@
 {% extends 'base.html.twig' %}
-{% form_theme form 'form/theme.html.twig' %}
+{% form_theme form with [
+    'form/profile_theme.html.twig',
+    'form/theme.html.twig',
+] %}
 {% block body %}
-    <div class="p-6">
-        <img src="{{ me.pp }}" alt="">
-        <div class="w-1/2 mx-auto">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button type="submit" class="btn-primary mt-2">Envoyer</button>
+    <div class="flex flex-col items-center justify-center min-h-screen py-12">
+        <div class="relative flex justify-center items-center">
+            <img src="/media/profile_picture/{{ me.pp }}" alt="Photo de profil" class="rounded-full w-48 h-48 object-cover hover:blur-sm transition duration-300 ease-in-out">
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300 ease-in-out">
+                <span class="text-white text-xl font-semibold">{{ me.name }}</span>
+            </div>
+        </div>
+        <div class="mt-8 w-full max-w-md mx-auto" data-controller="modal">
+            {{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
+            {{ form_widget(form.aboutMe) }}
+            {{ form_widget(form.age) }}
+            {{ form_widget(form.pp, {'attr': {'data-modal-target': 'input'}}) }}
+            {{ form_widget(form.fileUpload) }}
+            <button type="submit" class="btn-primary">
+                Envoyer
+            </button>
             {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}
-
-{% block title %}
-
-{% endblock %}
-

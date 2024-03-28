@@ -1,21 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'form/theme.html.twig' %}
+{% form_theme form with [
+    'form/profile_theme.html.twig',
+    'form/theme.html.twig',
+] %}
 
 {% block title %}Éditer le projet{% endblock %}
 
 {% block body %}
-    <div class="min-h-screen flex items-center justify-center py-12">
+    <div class="min-h-screen flex items-center justify-center py-12" data-controller="modal">
         <div class="max-w-lg w-full bg-white rounded-lg shadow-md p-8">
             <h1 class="text-2xl font-bold text-gray-900 mb-6">Éditer le projet</h1>
+            <img class="lg:h-48 md:h-36 w-full object-cover object-center"
+                 src="{{ asset('media/cover/') }}{{ project.cover }}" alt="{{ project.name }}">
             {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
 
             <div class="grid grid-cols-1 gap-6">
-                {{ form_widget(form) }}
+                {{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
+                {{ form_widget(form.name) }}
+                {{ form_widget(form.type) }}
+                {{ form_widget(form.description) }}
+                {{ form_widget(form.resource) }}
+                {{ form_widget(form.created_at) }}
+                {{ form_widget(form.fileUpload) }}
+                {{ form_widget(form.cover, {'attr': {'data-modal-target': 'input'}}) }}
             </div>
 
             <div class="flex justify-end mt-4">
-                <button type="submit" class="inline-flex items-center px-6 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150">
+                <button type="submit" class="btn-primary">
                     Sauvegarder les modifications
                 </button>
             </div>

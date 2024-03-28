@@ -15,10 +15,12 @@
 
     .btn-primary {
         @apply
-        bg-black text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out
-        hover:bg-white hover:text-black hover:border-black hover:border
-        active:bg-gray-800 active:text-white active:border-gray-800;
+        bg-indigo-600 text-gray-100 font-bold py-2 px-4 my-4 rounded transition duration-300 ease-in-out flex justify-center items-center shadow transform
+        hover:bg-indigo-500 hover:text-white hover:border-indigo-500 hover:border hover:scale-105 hover:shadow-lg
+        active:bg-indigo-700 active:text-gray-100 active:border-indigo-700 active:shadow-inner;
     }
+
+
 
     .btn-red{
         @apply
@@ -94,3 +96,6 @@
     justify-content: space-evenly;
 }
 
+[hidden]{
+    display: none;
+}

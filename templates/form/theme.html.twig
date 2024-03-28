@@ -11,7 +11,7 @@
 {% block form_label %}
     {% if label is not same as(false) %}
         <label class="block text-white text-lg font-medium mb-2" for="{{ form.vars.id }}">
-            {{ name|capitalize }}
+            {{ form.vars.label|capitalize }}
         </label>
     {% endif %}
 {% endblock %}
@@ -30,7 +30,8 @@
 {% block form_widget_simple %}
     <input class="form-input shadow appearance-none border rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
            type="{{ type }}"
-           value="{{ value }}" placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }} />
+           value="{{ value }}"
+           placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }} />
 {% endblock %}
 
 {% block text_widget %}
@@ -45,7 +46,7 @@
 
 {% block textarea_widget %}
     <textarea
-            class="form-textarea shadow appearance-none border rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            class="form-textarea shadow appearance-none border rounded-lg w-full py-16 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }}>{{ value }}</textarea>
 {% endblock %}
 
