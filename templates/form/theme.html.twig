@@ -11,7 +11,7 @@
 {% block form_label %}
     {% if label is not same as(false) %}
         <label class="block text-white text-lg font-medium mb-2" for="{{ form.vars.id }}">
-            {{ name|capitalize }}
+            {{ field_label(form)|capitalize }}
         </label>
     {% endif %}
 {% endblock %}
@@ -45,9 +45,10 @@
 
 {% block textarea_widget %}
     <textarea
-            class="form-textarea shadow appearance-none border rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            class="form-textarea shadow appearance-none border rounded-lg w-full py-16 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }}>{{ value }}</textarea>
 {% endblock %}
+
 
 {% block form_widget_compound %}
     <div {{ block('widget_container_attributes') }} class="space-y-4">

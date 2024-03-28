@@ -1,0 +1,10 @@
+{% for message in app.flashes('success') %}
+        <div data-controller="flash" class="alert alert-success fixed z-50 top-5 right-5 bg-green-500 text-white text-sm py-2 px-4 rounded-lg shadow-md transition-opacity" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div data-controller="flash" class="alert alert-error fixed z-50 top-5 right-5 bg-red-500 text-white text-sm py-2 px-4 rounded-lg shadow-md transition-opacity" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
