@@ -11,7 +11,7 @@
 {% block form_label %}
     {% if label is not same as(false) %}
         <label class="block text-white text-lg font-medium mb-2" for="{{ form.vars.id }}">
-            {{ field_label(form)|capitalize }}
+            {{ form.vars.label|capitalize }}
         </label>
     {% endif %}
 {% endblock %}

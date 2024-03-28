@@ -24,12 +24,14 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent]
-final class ProfilePictureModal extends AbstractController
+final class ImageModal extends AbstractController
 {
     use DefaultActionTrait;
 
     #[LiveProp]
     public array $images = [];
+    #[LiveProp]
+    public ?string $parameter = null;
     private string $root;
 
     public function __construct(private Filesystem $filesystem)
@@ -39,7 +41,7 @@ final class ProfilePictureModal extends AbstractController
 
     public function getImages(): array
     {
-        $this->root = $this->getParameter('pp_directory');
+        $this->root = $this->getParameter($this->parameter);
 
         $finder = new Finder();
 
@@ -59,7 +61,7 @@ final class ProfilePictureModal extends AbstractController
     public function delete(#[LiveArg] $name): void
     {
         $this->images = [];
-        $this->root = $this->getParameter('pp_directory');
+        $this->root = $this->getParameter($this->parameter);
         $fullPath = Path::join($this->root, $name);
         $this->filesystem->remove($fullPath);
         $this->addFlash('success', sprintf('Removed %s', $name));

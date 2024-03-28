@@ -30,6 +30,7 @@ use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormErrorIterator;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,7 +84,17 @@ class AdminController extends AbstractController
         $form = $this->createForm(ProjectType::class, $project);
 
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $this->addFormErrorsAsFlashMessages($errors);
+
+            return $this->redirectToRoute('admin_projects');
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
+            /* @var UploadedFile $ppFile */
+            $this->fileUpload($form, $project);
             $this->entityManager->persist($project);
             $this->entityManager->flush();
 
@@ -103,16 +114,27 @@ class AdminController extends AbstractController
     {
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
+        $id = $project->getId();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->flush();
-            $this->addFlash('success', 'Le projet a été mis à jour avec succès.');
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true);
+            $this->addFormErrorsAsFlashMessages($errors);
 
             return $this->redirectToRoute('admin_projects');
         }
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            /* @var UploadedFile $ppFile */
+            $this->fileUpload($form, $project);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Le projet a été mis à jour avec succès.');
+
+            return $this->redirectToRoute('project_edit', ['id' => $id]);
+        }
+
         return $this->render('admin/project_edit.html.twig', [
             'form' => $form->createView(),
+            'project' => $project,
         ]);
     }
 
@@ -223,8 +245,8 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && !$form->isValid()) {
             $errors = $form->getErrors(true);
             $this->addFormErrorsAsFlashMessages($errors);
-            return $this->redirectToRoute('admin_me');
 
+            return $this->redirectToRoute('admin_me');
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -264,6 +286,28 @@ class AdminController extends AbstractController
     {
         foreach ($errors as $error) {
             $this->addFlash('error', $error->getMessage());
+        }
+    }
+
+    private function fileUpload(FormInterface $form, Project $project): void
+    {
+        $ppFile = $form->get('fileUpload')->getData();
+
+        if ($ppFile) {
+            $originalFilename = pathinfo($ppFile->getClientOriginalName(), \PATHINFO_FILENAME);
+            $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+            $newFilename = 'cover_'.$safeFilename.'-'.uniqid().'.'.$ppFile->guessExtension();
+
+            try {
+                $ppFile->move(
+                    $this->getParameter('cover_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                $this->addFlash('error', $e->getMessage());
+            }
+
+            $project->setCover($newFilename);
         }
     }
 }

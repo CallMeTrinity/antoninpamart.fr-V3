@@ -33,8 +33,9 @@ class TrinityType extends AbstractType
                 'attr' => ['rows' => 16],
             ])
             ->add('pp', TextType::class, ['label' => 'Profile picture file name', 'attr' => ['hidden' => true]])
-            ->add('fileUpload', FileType::class, [
+            ->add('fileUpload', ModalUploadType::class, [
                 'label' => 'Photo de profil',
+                'parameter' => 'pp_directory',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
