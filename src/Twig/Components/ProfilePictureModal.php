@@ -13,20 +13,55 @@ declare(strict_types=1);
 
 namespace App\Twig\Components;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
+use Symfony\Component\Finder\Finder;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent]
-final class ProfilePictureModal
+final class ProfilePictureModal extends AbstractController
 {
     use DefaultActionTrait;
 
     #[LiveProp]
     public array $images = [];
+    private string $root;
 
-    public function getImages()
+    public function __construct(private Filesystem $filesystem)
     {
+        $this->filesystem = new Filesystem();
+    }
 
+    public function getImages(): array
+    {
+        $this->root = $this->getParameter('pp_directory');
+
+        $finder = new Finder();
+
+        $files = $finder
+            ->in($this->root)
+            ->depth(0)
+        ;
+
+        foreach ($files as $item) {
+            $this->images[] = $item->getBasename();
+        }
+
+        return $this->images;
+    }
+
+    #[LiveAction]
+    public function delete(#[LiveArg] $name): void
+    {
+        $this->images = [];
+        $this->root = $this->getParameter('pp_directory');
+        $fullPath = Path::join($this->root, $name);
+        $this->filesystem->remove($fullPath);
+        $this->addFlash('success', sprintf('Removed %s', $name));
     }
 }

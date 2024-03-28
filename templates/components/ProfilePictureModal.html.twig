@@ -1,3 +1,57 @@
-<div{{ attributes }}>
+<div {{ attributes }} class="flex items-center">
+    <twig:FlashMessage/>
+    <div>
+        <button type="button"
+                class="btn-primary p-4 rounded-full"
+                data-action="modal#open">
+            <i class="fa fa-image"></i>
+        </button>
+        <!-- Modal -->
+        <div data-modal-target="modal"
+             class="fixed z-50 inset-0 overflow-y-auto bg-black bg-opacity-50 flex justify-center items-center"
+             hidden="hidden">
+            <!-- Content -->
+            <div class="modal-content bg-white rounded-lg shadow-xl transform transition-all sm:max-w-lg sm:w-full p-6">
+                <div class="flex justify-end mb-4">
+                    <button type="button" data-action="modal#close"
+                            class="text-gray-400 hover:text-gray-500 transition ease-in-out duration-150">
+                        <span class="text-2xl">&times;</span>
+                    </button>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    {% for image in this.images %}
+                        <div data-controller="image-selection"
+                             data-image-selection-image-value="{{ image }}"
+                             class="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out h-48 relative group"
+                        >
+                            <div data-action="click->image-selection#selectImage"
+                                 class="cursor-pointer w-full h-full flex justify-center items-center"
+                            >
+                                <img src="/media/profile_picture/{{ image }}"
+                                     alt="Photo {{ image }}"
+                                     class="object-cover object-center w-full h-full transform hover:scale-110 transition-transform duration-300 ease-in-out"
+                                >
+                            </div>
+                            <button type="button"
+                                    data-action="click->live#action"
+                                    data-live-action-param="delete"
+                                    data-live-name-param="{{ image }}"
+                                    class="absolute top-0 right-0 z-10 bg-red-400 rounded-full p-2 text-white opacity-0 group-hover:opacity-100"
+                            >
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
 
+
+                <div class="mt-4 flex justify-end">
+                    <button type="button" data-action="modal#close"
+                            class="btn-primary">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

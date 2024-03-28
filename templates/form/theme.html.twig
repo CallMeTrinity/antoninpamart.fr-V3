@@ -30,7 +30,8 @@
 {% block form_widget_simple %}
     <input class="form-input shadow appearance-none border rounded-lg w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
            type="{{ type }}"
-           value="{{ value }}" placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }} />
+           value="{{ value }}"
+           placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }} />
 {% endblock %}
 
 {% block text_widget %}
@@ -48,7 +49,6 @@
             class="form-textarea shadow appearance-none border rounded-lg w-full py-16 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="{{ form.vars.attr.placeholder|default('') }}" {{ block('widget_attributes') }}>{{ value }}</textarea>
 {% endblock %}
-
 
 {% block form_widget_compound %}
     <div {{ block('widget_container_attributes') }} class="space-y-4">

@@ -32,7 +32,7 @@ class TrinityType extends AbstractType
                 'label' => 'Description',
                 'attr' => ['rows' => 16],
             ])
-            ->add('pp', TextType::class, ['label' => 'Profile picture file name'])
+            ->add('pp', TextType::class, ['label' => 'Profile picture file name', 'attr' => ['hidden' => true]])
             ->add('fileUpload', FileType::class, [
                 'label' => 'Photo de profil',
                 'mapped' => false,
@@ -43,7 +43,7 @@ class TrinityType extends AbstractType
                         'mimeTypes' => [
                             'image/jpg',
                             'image/png',
-                            'image/svg',
+                            'image/svg+xml',
                             'image/jpeg',
                             'image/webp',
                         ],
