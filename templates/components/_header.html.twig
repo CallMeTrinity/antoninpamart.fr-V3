@@ -59,10 +59,6 @@
                            class="text-white text-lg {{ app.request.get('_route') == 'about' ? 'font-semibold underline' : '' }}">Plus
                             d'infos</a>
                     </li>
-                    <li>
-                        <a href="{{ path('contact') }}"
-                           class="text-white text-lg {{ app.request.get('_route') == 'contact' ? 'font-semibold underline' : '' }}">Contact</a>
-                    </li>
                     {% if is_granted('ROLE_ADMIN') %}
                         <li>
                             <a href="{{ path('admin') }}"
