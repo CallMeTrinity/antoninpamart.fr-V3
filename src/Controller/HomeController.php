@@ -15,6 +15,7 @@ namespace App\Controller;
 
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -33,4 +34,12 @@ class HomeController extends AbstractController
             'projects' => $projects,
         ]);
     }
+
+    #[Route('/cv', name: 'cv')]
+    public function download(): BinaryFileResponse
+    {
+        return $this->file('.././public/media/pdf/CV 2024 PAMART.pdf');
+    }
+
+
 }

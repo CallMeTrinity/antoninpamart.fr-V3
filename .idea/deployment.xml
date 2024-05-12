@@ -6,7 +6,7 @@
       <paths name="infomaniak">
         <serverdata>
           <mappings>
-            <mapping deploy="/sites/test.dev.antoninpamart.fr" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/sites/antoninpamart.fr" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
